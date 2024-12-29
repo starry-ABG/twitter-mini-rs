@@ -1,0 +1,43 @@
+# 第一阶段：构建阶段 (builder)
+FROM rust:latest as builder
+
+# 设置工作目录
+WORKDIR /app
+
+# 将Cargo.toml和Cargo.lock拷贝进来（如果有Cargo.lock）
+COPY Cargo.toml .
+# 如果有workspace，也需复制workspace相关的Cargo.toml
+# COPY Cargo.lock .
+
+# 为了利用Docker缓存，先构建依赖
+RUN mkdir src
+RUN echo "fn main() {}" > src/main.rs
+RUN cargo build --release
+RUN rm -f target/release/deps/twitter_mini_rs*
+
+# 复制实际项目代码
+COPY . .
+
+# 编译release版本
+RUN cargo build --release
+
+# 第二阶段：运行阶段 (runtime)
+FROM debian:bullseye-slim
+
+# 创建一个不可privileged的用户(可选)
+RUN useradd -m -u 1000 axumuser
+
+# 拷贝编译结果
+COPY --from=builder /app/target/release/twitter_mini_rs /usr/local/bin/twitter_mini_rs
+
+# 设置运行时工作目录
+WORKDIR /app
+
+# 切换到普通用户(可选)
+USER axumuser
+
+# 应用在容器内侦听的端口
+EXPOSE 3000
+
+# 启动命令
+CMD ["twitter_mini_rs"]

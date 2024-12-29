@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  # PostgreSQL 服务
+  postgres:
+    image: postgres:15
+    container_name: twitter_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: twitter_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d  # 自动执行建表脚本
+    ports:
+      - "5433:5432"
+
+  # Redis 服务
+  redis:
+    image: redis:7-alpine
+    container_name: twitter_redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6379:6379"
+
+  # 应用服务
+  app:
+    build: .
+    container_name: twitter_app
+    depends_on:
+      - postgres
+      - redis
+    # 如果有 .env 文件中的变量，需要在这里声明或写入 environment:
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@postgres:5432/twitter_db"
+      REDIS_URL: "redis://redis:6379"
+      JWT_SECRET_KEY: "my_secret_for_jwt"
+      JWT_EXPIRE_HOURS: "24"
+      # 你也可以使用 env_file: ["./.env"] 的形式
+    # 将容器内部3000端口映射到宿主机3000
+    ports:
+      - "3000:3000"
+    # 让容器中的时区等与宿主机同步(可选)
+    # volumes:
+    #   - /etc/localtime:/etc/localtime:ro
+    #   - /etc/timezone:/etc/timezone:ro
+
+volumes:
+  pgdata:
+  redisdata:
