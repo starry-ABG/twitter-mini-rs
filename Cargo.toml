@@ -1,40 +1,41 @@
 [package]
-name = "twitter_mini_rs"
+name = "lab"
 version = "0.1.0"
 edition = "2021"
+description = "Large Language Model Application Backend by Rust"
 
 [dependencies]
 # -- Axum & Tower
-axum = "0.7.9"
-tokio = { version = "1.32", features = ["rt-multi-thread", "macros"] }
-tower = { version = "0.5", features = ["limit", "buffer"] }
+axum = "0.8.1"
+tokio = { version = "1.42.0", features = ["rt-multi-thread", "macros"] }
+tower = { version = "0.5.2", features = ["limit", "buffer"] }
 tower-http = { version = "0.6", features = ["trace", "limit"] }
-hyper = { version = "0.14", features = ["full"] }
+hyper = { version = "1.5.2", features = ["full"] }
 
 # -- SeaORM & Postgres
-sea-orm = { version = "0.11", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
+sea-orm = { version = "1.1", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
 # sea-orm-derive = "0.11"
-sea-query = "0.30"
+sea-query = "0.32.1"
 
 # -- Redis
-redis = "0.22"
+redis = "0.27.6"
 deadpool-redis = "0.10"
 
 # -- JWT / Auth
-jsonwebtoken = "8"
+jsonwebtoken = "9.3.0"
 chrono = "0.4"
-bcrypt = "0.12"
+bcrypt = "0.16.0"
 
 # -- Serde / Env / Others
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 dotenv = "0.15"
 anyhow = "1.0"
-thiserror = "1.0"
+thiserror = "2.0"
 
 # -- Tracing
 tracing = "0.1"
 tracing-subscriber = {version = "0.3", features = ["env-filter"]}
 tracing-appender = "0.2.3"
-moka = { version = "0.12.8", features = ["sync"] }
+moka = { version = "0.12.9", features = ["sync"] }
 

@@ -1,12 +1,12 @@
-use twitter_mini_rs::app_state::AppState;
-use twitter_mini_rs::config::Config;
-use twitter_mini_rs::api::create_routes;
+use lab::app_state::AppState;
+use lab::config::Config;
+use lab::api::create_routes;
 use deadpool_redis::Config as RedisConfig;
 use deadpool_redis::Runtime;
 
 use sea_orm::Database;
 use tower_http::trace::TraceLayer;
-use twitter_mini_rs::log::init_tracing;
+use lab::log::init_tracing;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {

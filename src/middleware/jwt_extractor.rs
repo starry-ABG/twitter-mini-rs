@@ -1,5 +1,4 @@
 use axum::{
-    async_trait,
     extract::FromRequestParts,
     http::{request::Parts, StatusCode}
 };
@@ -14,7 +13,6 @@ pub struct AuthUser {
     pub subject: String,  // 这里可能是 user_id 或 username
 }
 
-#[async_trait]
 impl FromRequestParts<AppState> for AuthUser {
     type Rejection = AppError;
 
