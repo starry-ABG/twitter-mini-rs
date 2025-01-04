@@ -3,7 +3,7 @@ use axum::{
     extract::FromRequestParts,
     http::{request::Parts, StatusCode}
 };
-use crate::error::AppError;
+use crate::errors::AppError;
 use crate::auth::jwt::verify_token;
 use crate::app_state::AppState;
 use std::sync::Arc;

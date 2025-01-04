@@ -1,15 +1,10 @@
-use std::sync::Arc;
-
 use axum::extract::State;
-use axum::{
-    extract::Extension,
-    Json
-};
+use axum::Json;
 use serde::{Deserialize, Serialize};
 use crate::app_state::AppState;
-use crate::domain::user_service::UserService;
+use crate::services::user_service::UserService;
 use crate::auth::jwt::generate_token;
-use crate::error::AppError;
+use crate::errors::AppError;
 use crate::entities::users::Model as UserModel;
 use anyhow::Result;
 

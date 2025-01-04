@@ -12,8 +12,8 @@ use tower::limit::RateLimitLayer;
 use tower::ServiceBuilder;
 
 use crate::app_state::AppState;
-use crate::routes::tweet::*;
-use crate::routes::user::*;
+use crate::api::tweet::*;
+use crate::api::user::*;
 
 pub fn create_routes() -> Router<AppState> {
     let router = Router::new()

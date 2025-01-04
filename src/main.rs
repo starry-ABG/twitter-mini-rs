@@ -1,31 +1,12 @@
-mod app_state;
-mod config;
-mod error;
-mod middlewares {
-    pub mod jwt_extractor;
-}
-mod auth {
-    pub mod jwt;
-}
-mod domain;
-mod entities;
-mod log;
-mod repository;
-mod routes;
-mod cache;
-
-use crate::app_state::AppState;
-use crate::config::Config;
-use crate::routes::create_routes;
-use axum::{Extension, Router};
+use twitter_mini_rs::app_state::AppState;
+use twitter_mini_rs::config::Config;
+use twitter_mini_rs::api::create_routes;
 use deadpool_redis::Config as RedisConfig;
 use deadpool_redis::Runtime;
-use log::init_tracing;
+
 use sea_orm::Database;
-use std::net::SocketAddr;
-use std::sync::Arc;
 use tower_http::trace::TraceLayer;
-use tracing_subscriber::{fmt, EnvFilter};
+use twitter_mini_rs::log::init_tracing;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {

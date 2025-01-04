@@ -1,4 +1,4 @@
-use crate::repository::user_repo::UserRepository;
+use crate::repositories::user_repo::UserRepository;
 use crate::entities::users;
 use sea_orm::DatabaseConnection;
 use anyhow::{Result, anyhow};

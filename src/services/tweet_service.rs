@@ -1,4 +1,4 @@
-use crate::repository::tweet_repo::TweetRepository;
+use crate::repositories::tweet_repo::TweetRepository;
 use crate::entities::tweets;
 use sea_orm::DatabaseConnection;
 use anyhow::Result;

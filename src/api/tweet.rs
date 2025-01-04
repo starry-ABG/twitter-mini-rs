@@ -6,9 +6,9 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use crate::app_state::AppState;
-use crate::domain::tweet_service::TweetService;
-use crate::error::AppError;
-use crate::middlewares::jwt_extractor::AuthUser;
+use crate::services::tweet_service::TweetService;
+use crate::errors::AppError;
+use crate::middleware::jwt_extractor::AuthUser;
 
 #[derive(Deserialize)]
 pub struct PostTweetRequest {
